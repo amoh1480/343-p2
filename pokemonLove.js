@@ -16,7 +16,7 @@ let person2 = document.getElementById('person2');
 // https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0
 
 // get all pokemon
-fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response => {
+fetch('https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0').then(response => {
     response.json().then(data => {
         // all pokemon
         let pokemon = data.results;
@@ -29,9 +29,12 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
             select.appendChild(option);
         }
         // random pokemon
-        // TODO: combo box of all pokemon 
+        // TODO: combo box of all pokemon         
         let pokemon1 = pokemon[Math.floor(Math.random() * pokemon.length)];
+        console.log(pokemon1);
         let pokemon2 = pokemon[Math.floor(Math.random() * pokemon.length)];
+        console.log(pokemon2);
+
         // console.log(pokemon1.name);
         fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon2.name}`, options)
             .then(response => response.json()
