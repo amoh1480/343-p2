@@ -20,7 +20,9 @@ fetch('https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0').then(re
     response.json().then(data => {
         // all pokemon
         let pokemon = data.results;
-        let select = document.getElementById('select');
+
+        // create select
+        let select = document.createElement('select');
         // set options for person1 select
         for (let i = 0; i < pokemon.length; i++) {
             let option = document.createElement('option');
@@ -28,6 +30,8 @@ fetch('https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0').then(re
             option.innerHTML = pokemon[i].name;
             select.appendChild(option);
         }
+        // append select to person1
+        person1.appendChild(select);
         // random pokemon
         // TODO: combo box of all pokemon         
         let pokemon1 = pokemon[Math.floor(Math.random() * pokemon.length)];
