@@ -5,9 +5,9 @@ body {
     padding: 10px;
 }
 
-div {
+.poke {
     height: 30%;
-    width: 40%;
+    width: 100%;
     flex: 1;
     padding: 10px;
     text-align: center;
