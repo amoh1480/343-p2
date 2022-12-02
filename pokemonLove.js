@@ -18,7 +18,9 @@ let person2 = document.getElementById('person2');
 // get all pokemon
 fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response => {
     response.json().then(data => {
-        let pokemon = data.results;
+        // all pokemon
+        let pokemon_all = data.results;
+        // random pokemon
         let pokemon1 = pokemon[Math.floor(Math.random() * pokemon.length)];
         let pokemon2 = pokemon[Math.floor(Math.random() * pokemon.length)];
         // console.log(pokemon1.name);
