@@ -5,6 +5,10 @@ body {
     padding: 10px;
 }
 
+.selectDiv {
+    position: fixed;
+}
+
 .poke {
     height: 30%;
     width: 100%;
