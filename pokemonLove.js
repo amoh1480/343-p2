@@ -44,12 +44,13 @@ function getValidPokemon() {
 
 // all pokemon species
 // https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0
+const pokemon = null;
 
 // get all pokemon
 fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response => {
     response.json().then(data => {
         // all pokemon
-        let pokemon = data.results;
+        pokemon = data.results;
 
         // create select
         let select = document.createElement('select');
@@ -63,7 +64,6 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
         // append select to person1
         person1.appendChild(select);
         // random pokemon
-        // TODO: combo box of all pokemon         
         let pokemon1 = pokemon[Math.floor(Math.random() * pokemon.length)];
         // fetch(pokemon1.url).then(response => {
         //     response.json().then(pokemon_stats => {
@@ -94,21 +94,21 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
         fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon2.name}`, options)
             .then(response => response.json()
                 .then(data => {
-                    // write to the DOM
-                    console.log(pokemon1)
-                    // person 1
-                    let person1Name = document.createElement('h2');
-                    person1Name.innerText = pokemon1.name;
-                    person1.appendChild(person1Name);
-                    fetch(pokemon1.url).then(response => {
-                        response.json().then(data => {
-                            console.log(data.sprites.other);
-                            let person1Image = document.createElement('img');
-                            // person1Image.src = data.sprites.front_default;
-                            person1Image.src = data.sprites.other["official-artwork"].front_default;
-                            person1.appendChild(person1Image);
-                        })
-                    });
+                    // // write to the DOM
+                    // console.log(pokemon1)
+                    // // person 1
+                    // let person1Name = document.createElement('h2');
+                    // person1Name.innerText = pokemon1.name;
+                    // person1.appendChild(person1Name);
+                    // fetch(pokemon1.url).then(response => {
+                    //     response.json().then(data => {
+                    //         console.log(data.sprites.other);
+                    //         let person1Image = document.createElement('img');
+                    //         // person1Image.src = data.sprites.front_default;
+                    //         person1Image.src = data.sprites.other["official-artwork"].front_default;
+                    //         person1.appendChild(person1Image);
+                    //     })
+                    // });
 
                     // person 2
                     console.log(pokemon2);
@@ -133,6 +133,30 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
             .catch(err => console.error(err));
     });
 });
+
+// listen for submit
+document.getElementById('submit').addEventListener('click', function (e) {
+    e.preventDefault();
+    // get pokemon object from select name
+    let pokemon1 = pokemon.find(pokemon => pokemon.name == person1.children[0].value);
+
+    let results = document.getElementById('results');
+
+    // fetch compatibility for each pokemon in array
+    for (let i = 0; i < pokemon.length; i++) {
+        fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon[i].name}`, options)
+            .then(response => response.json()
+                .then(data => {
+                    // write to results
+                    let result = document.createElement('div');
+                    result.innerHTML = `${pokemon1.name} and ${pokemon[i].name} are ${data.percentage}% compatible`;
+                    results.appendChild(result);
+                }))
+            .catch(err => console.error(err));
+    }
+
+});
+
 
 
 
