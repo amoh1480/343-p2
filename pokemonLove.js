@@ -6,8 +6,8 @@ const options = {
     }
 };
 
-let person1 = document.getElementById('person1');
-let person2 = document.getElementById('person2');
+let rightSide = document.getElementById('rightSide');
+let leftSide = document.getElementById('leftSide');
 
 function getValidPokemon() {
     // console.log("in get valid");
@@ -44,141 +44,138 @@ function getValidPokemon() {
 
 // all pokemon species
 // https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0
-const pokemon = null;
 
 // get all pokemon
 fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response => {
     response.json().then(data => {
         // all pokemon
-        pokemon = data.results;
-
+        let pokemon = data.results;
         // create select
         let select = document.createElement('select');
         // set options for person1 select
+        // get array of names from pokemon
+        let pokemonNames = pokemon.map(pokemon => pokemon.name).sort();
         for (let i = 0; i < pokemon.length; i++) {
             let option = document.createElement('option');
-            option.value = pokemon[i].name;
-            option.innerHTML = pokemon[i].name;
+            option.value = pokemonNames[i];
+            option.innerHTML = pokemonNames[i];
             select.appendChild(option);
         }
-        // append select to person1
-        person1.appendChild(select);
-        // random pokemon
-        let pokemon1 = pokemon[Math.floor(Math.random() * pokemon.length)];
-        // fetch(pokemon1.url).then(response => {
-        //     response.json().then(pokemon_stats => {
-        //         for (let i = 0; i < 20; i++) {
-        //             if (pokemon_stats.name == pokemon_stats.species.name) {
-        //                 break;
-        //             }
-        //             pokemon1 = pokemon[Math.floor(Math.random() * pokemon.length)];
-        //         }
-        //     });
-        // });
-        console.log(pokemon1);
+        // append select to left side
+        leftSide.appendChild(select);
+        leftSide.appendChild(document.createElement('br'));
+        let button = document.createElement('button');
+        button.innerHTML = "Calculate";
+        // set button id
+        button.id = "calculate";
+        document.getElementById('leftSide').appendChild(button);
 
-        let pokemon2 = pokemon[Math.floor(Math.random() * pokemon.length)];
-        fetch(pokemon2.url).then(response => {
-            response.json().then(pokemon_stats => {
-                for (let i = 0; i < 20; i++) {
-                    if (pokemon_stats.name == pokemon_stats.species.name) {
-                        break;
-                    }
-                    pokemon2 = pokemon[Math.floor(Math.random() * pokemon.length)];
-                }
-            });
+        // set options for person2 select
+        // leftSide.appendChild(document.create)
+        // listen for submit
+        document.getElementById('calculate').addEventListener('click', function (e) {
+            e.preventDefault();
+            // get pokemon object from select name
+            let pokemon1 = pokemon.find(pokemon => pokemon.name == select.value);
+
+            let results = document.getElementById('results');
+            results.innerHTML = ""; // reset results
+
+            // fetch compatibility for each pokemon in array
+            for (let i = 0; i < 50; i++) {
+                fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon[i].name}`, options)
+                    .then(response => response.json()
+                        .then(data => {
+                            // write to results
+                            let result = document.createElement('div');
+                            result.innerHTML = `${pokemon1.name} and ${pokemon[i].name} are ${data.percentage}% compatible`;
+                            results.appendChild(result);
+                        }))
+                    .catch(err => console.error(err));
+            }
+
         });
-        console.log(pokemon2);
-
-        // console.log(pokemon1.name);
-        fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon2.name}`, options)
-            .then(response => response.json()
-                .then(data => {
-                    // // write to the DOM
-                    // console.log(pokemon1)
-                    // // person 1
-                    // let person1Name = document.createElement('h2');
-                    // person1Name.innerText = pokemon1.name;
-                    // person1.appendChild(person1Name);
-                    // fetch(pokemon1.url).then(response => {
-                    //     response.json().then(data => {
-                    //         console.log(data.sprites.other);
-                    //         let person1Image = document.createElement('img');
-                    //         // person1Image.src = data.sprites.front_default;
-                    //         person1Image.src = data.sprites.other["official-artwork"].front_default;
-                    //         person1.appendChild(person1Image);
-                    //     })
-                    // });
-
-                    // person 2
-                    console.log(pokemon2);
-                    let person2Name = document.createElement('h2');
-                    person2Name.innerText = pokemon2.name;
-                    person2.appendChild(person2Name);
-                    fetch(pokemon2.url).then(response => {
-                        response.json().then(data => {
-                            let person2Image = document.createElement('img');
-                            // person2Image.src = data.sprites.front_default;
-                            person2Image.src = data.sprites.other["official-artwork"].front_default;
-                            person2.appendChild(person2Image);
-                        })
-                    });
 
 
+        // // random pokemon
+        // let pokemon1 = pokemon[Math.floor(Math.random() * pokemon.length)];
 
-                    // person2.innerHTML = pokemon2.name;
-                    document.getElementById('percentage').innerHTML = data.percentage + '%';
-                    document.getElementById('result').innerHTML = data.result;
-                }))
-            .catch(err => console.error(err));
+        // console.log(pokemon1);
+
+        // let pokemon2 = pokemon[Math.floor(Math.random() * pokemon.length)];
+        // fetch(pokemon2.url).then(response => {
+        //     response.json().then(pokemon_stats => {
+        // });
+        // console.log(pokemon2);
+
+        // // console.log(pokemon1.name);
+        // fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon2.name}`, options)
+        //     .then(response => response.json()
+        //         .then(data => {
+        //             // // write to the DOM
+        //             // console.log(pokemon1)
+        //             // // person 1
+        //             // let person1Name = document.createElement('h2');
+        //             // person1Name.innerText = pokemon1.name;
+        //             // person1.appendChild(person1Name);
+        //             // fetch(pokemon1.url).then(response => {
+        //             //     response.json().then(data => {
+        //             //         console.log(data.sprites.other);
+        //             //         let person1Image = document.createElement('img');
+        //             //         // person1Image.src = data.sprites.front_default;
+        //             //         person1Image.src = data.sprites.other["official-artwork"].front_default;
+        //             //         person1.appendChild(person1Image);
+        //             //     })
+        //             // });
+
+        //             // person 2
+        //             console.log(pokemon2);
+        //             let person2Name = document.createElement('h2');
+        //             person2Name.innerText = pokemon2.name;
+        //             person2.appendChild(person2Name);
+        //             fetch(pokemon2.url).then(response => {
+        //                 response.json().then(data => {
+        //                     let person2Image = document.createElement('img');
+        //                     // person2Image.src = data.sprites.front_default;
+        //                     person2Image.src = data.sprites.other["official-artwork"].front_default;
+        //                     person2.appendChild(person2Image);
+        //                 })
+        //             });
+
+
+
+        //             // person2.innerHTML = pokemon2.name;
+        //             document.getElementById('percentage').innerHTML = data.percentage + '%';
+        //             document.getElementById('result').innerHTML = data.result;
+        //         }))
+        //     .catch(err => console.error(err));
     });
 });
 
-// listen for submit
-document.getElementById('submit').addEventListener('click', function (e) {
-    e.preventDefault();
-    // get pokemon object from select name
-    let pokemon1 = pokemon.find(pokemon => pokemon.name == person1.children[0].value);
 
-    let results = document.getElementById('results');
-
-    // fetch compatibility for each pokemon in array
-    for (let i = 0; i < pokemon.length; i++) {
-        fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon[i].name}`, options)
-            .then(response => response.json()
-                .then(data => {
-                    // write to results
-                    let result = document.createElement('div');
-                    result.innerHTML = `${pokemon1.name} and ${pokemon[i].name} are ${data.percentage}% compatible`;
-                    results.appendChild(result);
-                }))
-            .catch(err => console.error(err));
-    }
-
-});
 
 
 
 
 
 function filterSearch() {
-      // Declare variables
-      var input, filter, ul, li, a, i, txtValue;
-      input = document.getElementById('myInput');
-      filter = input.value.toUpperCase();
-      ul = document.getElementById("myUL");
-      li = ul.getElementsByTagName('li');
-    
-      // Loop through all list items, and hide those who don't match the search query
-      for (i = 0; i < li.length; i++) {
+    // Declare variables
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById('myInput');
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName('li');
+
+    // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
         a = li[i].getElementsByTagName("a")[0];
         txtValue = a.textContent || a.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          li[i].style.display = "";
-        } else {
-          li[i].style.display = "none";
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
         }
-      }
     }
+}
 
     // <li><a href="#"></a></li>
