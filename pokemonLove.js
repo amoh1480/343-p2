@@ -23,7 +23,7 @@ function getValidPokemon() {
                     // console.log(pokemon.name);
                     // console.log(pokemon_stats);
                     // console.log(pokemon_stats.species);
-                    if(pokemon_stats.name != pokemon_stats.species.name) {
+                    if (pokemon_stats.name != pokemon_stats.species.name) {
                         return getValidPokemon();
                     } else {
                         // console.log("i have reached the result");
@@ -65,16 +65,16 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
         // random pokemon
         // TODO: combo box of all pokemon         
         let pokemon1 = pokemon[Math.floor(Math.random() * pokemon.length)];
-        fetch(pokemon1.url).then(response => {
-            response.json().then(pokemon_stats => {
-                for (let i = 0; i < 20; i++) {
-                    if (pokemon_stats.name == pokemon_stats.species.name) {
-                        break;
-                    }
-                    pokemon1 = pokemon[Math.floor(Math.random() * pokemon.length)];
-                }
-            });
-        });
+        // fetch(pokemon1.url).then(response => {
+        //     response.json().then(pokemon_stats => {
+        //         for (let i = 0; i < 20; i++) {
+        //             if (pokemon_stats.name == pokemon_stats.species.name) {
+        //                 break;
+        //             }
+        //             pokemon1 = pokemon[Math.floor(Math.random() * pokemon.length)];
+        //         }
+        //     });
+        // });
         console.log(pokemon1);
 
         let pokemon2 = pokemon[Math.floor(Math.random() * pokemon.length)];
