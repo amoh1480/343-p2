@@ -78,7 +78,7 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
             // get pokemon object from select name
             let pokemon1 = pokemon.find(pokemon => pokemon.name == select.value);
 
-            let results = document.getElementById('results');
+            let results = document.getElementById('myUL');
             results.innerHTML = ""; // reset results
 
             // fetch compatibility for each pokemon in array
@@ -87,8 +87,11 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
                     .then(response => response.json()
                         .then(data => {
                             // write to results
-                            let result = document.createElement('div');
-                            result.innerHTML = `${pokemon1.name} and ${pokemon[i].name} are ${data.percentage}% compatible`;
+                            let result = document.createElement('li');
+                            let anchor = document.createElement('a');
+                            anchor.href = `https://pokeapi.co/api/v2/pokemon/${pokemon[i].name}`;
+                            anchor.innerHTML = `${pokemon1.name} and ${pokemon[i].name} are ${data.percentage}% compatible`;
+                            result.appendChild(anchor);
                             results.appendChild(result);
                         }))
                     .catch(err => console.error(err));
