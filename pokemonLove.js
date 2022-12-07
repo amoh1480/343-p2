@@ -6,6 +6,18 @@ const options = {
     }
 };
 
+// Range slider
+let slider = document.getElementById("myRange");
+let output = document.getElementById("range_value");
+output.innerHTML = slider.value; // Display the default slider value
+// add listener to slider
+slider.addEventListener("input", function () {
+    let output = document.getElementById("range_value");
+    output.innerHTML = slider.value;
+});
+
+
+
 let rightSide = document.getElementById('rightSide');
 let leftSide = document.getElementById('leftSide');
 
@@ -77,7 +89,7 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
             e.preventDefault();
             // get pokemon object from select name
             let pokemon1 = pokemon.find(pokemon => pokemon.name == select.value);
-
+            console.log(pokemon1);
             let results = document.getElementById('myUL');
             results.innerHTML = ""; // reset results
 
@@ -86,12 +98,15 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
                 fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon[i].name}`, options)
                     .then(response => response.json()
                         .then(data => {
-                            // write to results
-                            let result = document.createElement('li');
-                            let anchor = document.createElement('a');
-                            anchor.href = `https://pokeapi.co/api/v2/pokemon/${pokemon[i].name}`;
-                            anchor.innerHTML = `${pokemon1.name} and ${pokemon[i].name} are ${data.percentage}% compatible`;
-                            result.appendChild(anchor);
+
+                            // // write to results
+                            // let result = document.createElement('li');
+                            // let anchor = document.createElement('a');
+                            // anchor.href = `https://pokeapi.co/api/v2/pokemon/${pokemon[i].name}`;
+                            // anchor.innerHTML = `${pokemon1.name} and ${pokemon[i].name} are ${data.percentage}% compatible`;
+                            // result.appendChild(anchor);
+
+                            let result = cardify(pokemon[i].name, data.percentage, data.result);
                             results.appendChild(result);
                         }))
                     .catch(err => console.error(err));
@@ -168,12 +183,58 @@ function filterSearch() {
     for (i = 0; i < li.length; i++) {
         a = li[i].getElementsByTagName("a")[0];
         txtValue = a.textContent || a.innerText;
+        // find pokemon from text
+        // let pokemon = pokemon.find(pokemon => pokemon.name == txtValue);
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
             li[i].style.display = "";
         } else {
             li[i].style.display = "none";
         }
     }
+
 }
+
+// creates a compatibility card for given pokemon as an li element with picture and percentage and ru   
+function cardify(pokemon, percentage, result) {
+    // li
+    let card = document.createElement('li');
+
+    // anchor
+    let anchor = document.createElement('a');
+    anchor.href = pokemon.url;
+
+    // image
+    let image = document.createElement('img');
+    // fetch pokemon url
+    fetch(pokemon.url).then(response => {
+        response.json().then(data => {
+            image.src = data.sprites.other["official-artwork"].front_default;
+            // append image to anchor
+            anchor.appendChild(image);
+        })
+    });
+
+    // name
+    let name_h2 = document.createElement('h2');
+    name_h2.innerText = pokemon.name;
+
+    // percentage
+    let percent_p = document.createElement('p');
+    percent_p.innerText = percentage;
+
+    // results
+    let result_p = document.createElement('p');
+    result_p.style.fontStyle = 'italic';
+    result_p.innerText = result;
+
+    // appendages 
+    // anchor.appendChild(image);
+    anchor.appendChild(name_h2);
+    anchor.appendChild(percent_p);
+    anchor.appendChild(result_p);
+    card.appendChild(anchor);
+    return card;
+}
+
 
     // <li><a href="#"></a></li>
