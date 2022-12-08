@@ -105,8 +105,7 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
                             // anchor.href = `https://pokeapi.co/api/v2/pokemon/${pokemon[i].name}`;
                             // anchor.innerHTML = `${pokemon1.name} and ${pokemon[i].name} are ${data.percentage}% compatible`;
                             // result.appendChild(anchor);
-
-                            let result = cardify(pokemon[i].name, data.percentage, data.result);
+                            let result = cardify(pokemon[i], data.percentage, data.result);
                             results.appendChild(result);
                         }))
                     .catch(err => console.error(err));
