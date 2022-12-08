@@ -105,67 +105,14 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
                             // anchor.href = `https://pokeapi.co/api/v2/pokemon/${pokemon[i].name}`;
                             // anchor.innerHTML = `${pokemon1.name} and ${pokemon[i].name} are ${data.percentage}% compatible`;
                             // result.appendChild(anchor);
-                            let result = cardify(pokemon[i], data.percentage, data.result);
-                            results.appendChild(result);
+                            cardify(pokemon[i], data.percentage, data.result, results);
+                            // results.appendChild(result);
                         }))
                     .catch(err => console.error(err));
             }
 
         });
 
-
-        // // random pokemon
-        // let pokemon1 = pokemon[Math.floor(Math.random() * pokemon.length)];
-
-        // console.log(pokemon1);
-
-        // let pokemon2 = pokemon[Math.floor(Math.random() * pokemon.length)];
-        // fetch(pokemon2.url).then(response => {
-        //     response.json().then(pokemon_stats => {
-        // });
-        // console.log(pokemon2);
-
-        // // console.log(pokemon1.name);
-        // fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon2.name}`, options)
-        //     .then(response => response.json()
-        //         .then(data => {
-        //             // // write to the DOM
-        //             // console.log(pokemon1)
-        //             // // person 1
-        //             // let person1Name = document.createElement('h2');
-        //             // person1Name.innerText = pokemon1.name;
-        //             // person1.appendChild(person1Name);
-        //             // fetch(pokemon1.url).then(response => {
-        //             //     response.json().then(data => {
-        //             //         console.log(data.sprites.other);
-        //             //         let person1Image = document.createElement('img');
-        //             //         // person1Image.src = data.sprites.front_default;
-        //             //         person1Image.src = data.sprites.other["official-artwork"].front_default;
-        //             //         person1.appendChild(person1Image);
-        //             //     })
-        //             // });
-
-        //             // person 2
-        //             console.log(pokemon2);
-        //             let person2Name = document.createElement('h2');
-        //             person2Name.innerText = pokemon2.name;
-        //             person2.appendChild(person2Name);
-        //             fetch(pokemon2.url).then(response => {
-        //                 response.json().then(data => {
-        //                     let person2Image = document.createElement('img');
-        //                     // person2Image.src = data.sprites.front_default;
-        //                     person2Image.src = data.sprites.other["official-artwork"].front_default;
-        //                     person2.appendChild(person2Image);
-        //                 })
-        //             });
-
-
-
-        //             // person2.innerHTML = pokemon2.name;
-        //             document.getElementById('percentage').innerHTML = data.percentage + '%';
-        //             document.getElementById('result').innerHTML = data.result;
-        //         }))
-        //     .catch(err => console.error(err));
     });
 });
 
@@ -194,7 +141,7 @@ function filterSearch() {
 }
 
 // creates a compatibility card for given pokemon as an li element with picture and percentage and ru   
-function cardify(pokemon, percentage, result) {
+function cardify(pokemon, percentage, result, results) {
     // li
     let card = document.createElement('li');
 
@@ -210,30 +157,28 @@ function cardify(pokemon, percentage, result) {
             image.src = data.sprites.other["official-artwork"].front_default;
             // append image to anchor
             anchor.appendChild(image);
+            // name
+            let name_h2 = document.createElement('h2');
+            name_h2.innerText = pokemon.name;
+
+            // percentage
+            let percent_p = document.createElement('p');
+            percent_p.innerText = percentage;
+
+            // results
+            let result_p = document.createElement('p');
+            result_p.style.fontStyle = 'italic';
+            result_p.innerText = result;
+
+            // appendages 
+            // anchor.appendChild(image);
+            anchor.appendChild(name_h2);
+            anchor.appendChild(percent_p);
+            anchor.appendChild(result_p);
+            card.appendChild(anchor);
+            results.appendChild(card);
         })
     });
 
-    // name
-    let name_h2 = document.createElement('h2');
-    name_h2.innerText = pokemon.name;
 
-    // percentage
-    let percent_p = document.createElement('p');
-    percent_p.innerText = percentage;
-
-    // results
-    let result_p = document.createElement('p');
-    result_p.style.fontStyle = 'italic';
-    result_p.innerText = result;
-
-    // appendages 
-    // anchor.appendChild(image);
-    anchor.appendChild(name_h2);
-    anchor.appendChild(percent_p);
-    anchor.appendChild(result_p);
-    card.appendChild(anchor);
-    return card;
 }
-
-
-    // <li><a href="#"></a></li>
