@@ -98,15 +98,7 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
                 fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon[i].name}`, options)
                     .then(response => response.json()
                         .then(data => {
-
-                            // // write to results
-                            // let result = document.createElement('li');
-                            // let anchor = document.createElement('a');
-                            // anchor.href = `https://pokeapi.co/api/v2/pokemon/${pokemon[i].name}`;
-                            // anchor.innerHTML = `${pokemon1.name} and ${pokemon[i].name} are ${data.percentage}% compatible`;
-                            // result.appendChild(anchor);
                             cardify(pokemon[i], data.percentage, data.result, results);
-                            // results.appendChild(result);
                         }))
                     .catch(err => console.error(err));
             }
@@ -127,7 +119,7 @@ function filterSearch() {
 
     // Loop through all list items, and hide those who don't match the search query
     for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
+        a = li[i].getElementsByTagName("h2")[0];
         txtValue = a.textContent || a.innerText;
         // find pokemon from text
         // let pokemon = pokemon.find(pokemon => pokemon.name == txtValue);
