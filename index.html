@@ -35,17 +35,10 @@
             <!-- filter -->
             <div class="slidecontainer">
                 <label for="range">Compatibility Percent</label>
-                <input type="range" min="1" max="99" value="50" class="slider" id="myRange">
+                <input type="range" oninput="sliderUpdate()" min="1" max="99" value="50" class="slider" id="myRange">
                 <p id="range_value"></p>
             </div>
-            <!-- <select name="filter" id="filter">
-                <option>Compatibility > 90%</option>
-                <option>Compatibility > 80%</option>
-                <option>Same Height</option>
-                <option>Same Weight</option>
-            </select> -->
             <ul id="myUL">
-                <li><a href="#"></a></li>
             </ul>
         </div>
     </div>

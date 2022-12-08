@@ -174,3 +174,24 @@ function cardify(pokemon, percentage, result, results) {
 
 
 }
+
+// slider update
+function sliderUpdate() {
+    let slider = document.getElementById('myRange');
+    var input, filter, ul, li, a, i, txtValue;
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName('li');
+
+    // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("p")[0];
+        txtValue = a.textContent || a.innerText;
+        // find pokemon from text
+        // let pokemon = pokemon.find(pokemon => pokemon.name == txtValue);
+        if (txtValue >= slider.value) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
