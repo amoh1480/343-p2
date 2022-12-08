@@ -24,6 +24,7 @@
     <!-- LEFT SIDE -->
     <div id="leftSide" class="sidebar-item sticky-top">
         <label>Choose a Pokemon: </label>
+        <div id="selected_pokemon"></div>
     </div>
 
     <!-- RIGHT SIDE  -->
@@ -35,7 +36,7 @@
             <!-- filter -->
             <div class="slidecontainer">
                 <label for="range">Compatibility Percent</label>
-                <input type="range" oninput="sliderUpdate()" min="1" max="99" value="50" class="slider" id="myRange">
+                <input type="range" oninput="sliderUpdate()" min="1" max="99" value="1" class="slider" id="myRange">
                 <p id="range_value"></p>
             </div>
             <ul id="myUL">
