@@ -161,9 +161,11 @@ function filterSearch() {
     for (i = 0; i < li.length; i++) {
         a = li[i].getElementsByTagName("h2")[0];
         txtValue = a.textContent || a.innerText;
+        let percentage = li[i].getElementsByTagName("p")[0];
+        percentage = percentage.innerText;
         // find pokemon from text
         // let pokemon = pokemon.find(pokemon => pokemon.name == txtValue);
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        if (txtValue.toUpperCase().indexOf(filter) > -1 && percentage >= slider.value) {
             li[i].style.display = "";
         } else {
             li[i].style.display = "none";
