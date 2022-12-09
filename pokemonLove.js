@@ -17,11 +17,6 @@ slider.addEventListener("input", function () {
 });
 
 
-
-
-
-
-
 let rightSide = document.getElementById('rightSide');
 let leftSide = document.getElementById('leftSide');
 
@@ -71,12 +66,15 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
         // set options for person1 select
         // get array of names from pokemon
         let pokemonNames = pokemon.map(pokemon => pokemon.name).sort();
+
         for (let i = 0; i < pokemon.length; i++) {
             let option = document.createElement('option');
             option.value = pokemonNames[i];
             option.innerHTML = pokemonNames[i];
             select.appendChild(option);
         }
+        // get list of pokemon in alphabetical order
+        pokemon = pokemonNames.map(name => pokemon.find(pokemon => pokemon.name == name));
         // append select to left side
         leftSide.appendChild(select);
         leftSide.appendChild(document.createElement('br'));
@@ -103,8 +101,8 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
 
                 let selected = document.getElementById('selected_pokemon');
                 selected.innerHTML = "";
-                selected.appendChild(image);
                 selected.appendChild(name_h2);
+                selected.appendChild(image);
 
             })
         });
@@ -119,7 +117,7 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
             results.innerHTML = ""; // reset results
 
             // fetch compatibility for each pokemon in array
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 100; i++) {
                 fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon[i].name}`, options)
                     .then(response => response.json()
                         .then(data => {
@@ -132,6 +130,7 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
             // clear previous
             // image
             let image = document.createElement('img');
+            pokemon1 = pokemon.find(pokemon => pokemon.name == select.value);
             // fetch pokemon url
             fetch(pokemon1.url).then(response => {
                 response.json().then(data => {
@@ -146,9 +145,8 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
 
                     let selected = document.getElementById('selected_pokemon');
                     selected.innerHTML = "";
-                    selected.appendChild(image);
                     selected.appendChild(name_h2);
-
+                    selected.appendChild(image);
                 })
             });
 

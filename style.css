@@ -28,18 +28,15 @@ body {
   justify-content: space-around;
 }
 
-
+.rightSide {
+  max-width: 190%;
+}
 
 .leftSide {
   position: sticky;
   top: 0;
 }
 
-.results {
-  position: relative;
-  max-height: calc(100vh - 9rem);
-  overflow-y: auto;
-}
 
 .myInput {
   position: sticky;
