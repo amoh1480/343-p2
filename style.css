@@ -47,9 +47,6 @@ body {
 #leftSide {
   position: sticky;
   top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 
@@ -116,4 +113,18 @@ body {
 #myUL li a:hover:not(.header) {
   background-color: #56cbf9;
   /* Add a hover effect to all links, except for headers */
+}
+
+@media only screen and (max-width: 900px) {
+  #columns {
+    flex-direction: column;
+  }
+
+  #leftSide {
+    position: relative;
+  }
+
+  #rightSide {
+    max-width: 100%;
+  }
 }
