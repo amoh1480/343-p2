@@ -148,21 +148,63 @@ function filterSearch() {
     filter = input.value.toUpperCase();
     ul = document.getElementById("myUL");
     li = ul.getElementsByTagName('li');
+    let arr = [];
 
     // Loop through all list items, and hide those who don't match the search query
     for (i = 0; i < li.length; i++) {
         a = li[i].getElementsByTagName("h2")[0];
         txtValue = a.textContent || a.innerText;
         let percentage = li[i].getElementsByTagName("p")[0];
-        percentage = percentage.innerText;
+        // console.log(percentage.firstChild.data);
+        // percentage = percentage.innerText;
+        percentage = percentage.firstChild.data;
         // find pokemon from text
         // let pokemon = pokemon.find(pokemon => pokemon.name == txtValue);
+
         if (txtValue.toUpperCase().indexOf(filter) > -1 && percentage >= slider.value) {
+            console.log(filter);
+            console.log(txtValue.toUpperCase().indexOf(filter));
             li[i].style.display = "";
+            // li[i].style.display = "none";
+            arr.push(li[i]);
         } else {
             li[i].style.display = "none";
         }
     }
+
+    function ascendingPercentages(a, b) {
+        console.log("i sort now")
+        var percentageA = a.getElementsByTagName("p")[0];
+        percentageA = percentageA.firstChild.data;
+        console.log(percentageA);
+
+        var percentageB = b.getElementsByTagName("p")[0];
+        percentageB = percentageB.firstChild.data;
+        console.log(percentageB);
+
+        
+        if (percentageA <percentageB) {
+            console.log("A < B -- -1");
+            return -1;
+        }
+
+        if (percentageA > percentageB) {
+            console.log("A > B -- 1");
+            return 1;
+        }
+
+        console.log("A == B -- 0");
+        return 0;
+    }
+
+    arr.sort(ascendingPercentages);
+
+    for (i = 0; i < arr.length; i++) {
+        console.log(arr[i]);
+        arr[i].style.display = "";
+    }
+
+    
 
 }
 
