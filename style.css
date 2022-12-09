@@ -52,6 +52,10 @@ body {
   top: 0;
 }
 
+#leftSide h2 {
+  text-align: center;
+}
+
 
 .myInput {
   position: sticky;
