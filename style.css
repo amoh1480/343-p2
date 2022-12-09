@@ -113,8 +113,10 @@ body {
 
 #myUL li a:hover:not(.header) {
   background-color: #56cbf9;
+  transform: scale(1.01);
   /* Add a hover effect to all links, except for headers */
 }
+
 
 @media only screen and (max-width: 900px) {
   #columns {
