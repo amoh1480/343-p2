@@ -199,6 +199,12 @@ function cardify(pokemon, percentage, result, results) {
             image.src = data.sprites.other["official-artwork"].front_default;
             // append image to anchor
             anchor.appendChild(image);
+            // div of text
+            let text_div = document.createElement('div');
+            text_div.style.display = 'inline-block';
+            text_div.style.marginLeft = '10px';
+            text_div.style.verticalAlign = 'top';
+
             // name
             let name_h2 = document.createElement('h2');
             name_h2.innerText = pokemon.name;
@@ -213,10 +219,11 @@ function cardify(pokemon, percentage, result, results) {
             result_p.innerText = result;
 
             // appendages 
-            // anchor.appendChild(image);
-            anchor.appendChild(name_h2);
-            anchor.appendChild(percent_p);
-            anchor.appendChild(result_p);
+            text_div.appendChild(name_h2);
+            text_div.appendChild(percent_p);
+            text_div.appendChild(result_p);
+
+            anchor.appendChild(text_div);
             card.appendChild(anchor);
             results.appendChild(card);
         })
