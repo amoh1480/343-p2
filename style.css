@@ -41,7 +41,8 @@ body {
 }
 
 #rightSide {
-  max-width: 100%;
+  /* max-width: 150%; */
+  min-width: 60%;
 }
 
 #leftSide {
