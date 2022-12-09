@@ -56,6 +56,13 @@ body {
   text-align: center;
 }
 
+#leftSide a:hover {
+  /* overwrite and do not change color */
+  color: black;
+  text-decoration: none;
+
+}
+
 
 .myInput {
   position: sticky;
@@ -87,7 +94,7 @@ body {
   margin: 0;
 }
 
-#myUL li a {
+a {
   border: 1px solid #DBD8F0;
   /* Add a border to all links */
   margin-top: -1px;
@@ -106,7 +113,7 @@ body {
   /* Make it into a block element to fill the whole list */
 }
 
-#myUL li a a {
+a a {
   /* make bold */
   font-weight: bold;
   color: black;

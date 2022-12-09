@@ -50,12 +50,12 @@ function getValidPokemon() {
     });
 }
 
-
+let pokemon = null;
 // get all pokemon
 fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response => {
     response.json().then(data => {
         // all pokemon
-        let pokemon = data.results;
+        pokemon = data.results;
         // create select
         let select = document.createElement('select');
         // set options for person1 select
@@ -79,36 +79,50 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
         button.id = "calculate";
         document.getElementById('leftSide').appendChild(button);
 
-        let pokemon1 = pokemon.find(pokemon => pokemon.name == select.value);
-        // ---------------- set first pokemon -----------------//
-        let image = document.createElement('img');
-        // fetch pokemon url
-        fetch(pokemon1.url).then(response => {
-            response.json().then(data => {
-                image.src = data.sprites.other["official-artwork"].front_default;
-                // set size 
-                image.style.maxHeight = "300px";
-                image.style.maxWidth = "300px";
-
-                // name
-                let name_h2 = document.createElement('h2');
-                name_h2.innerText = pokemon1.name;
-
-                let selected = document.getElementById('selected_pokemon');
-                selected.innerHTML = "";
-                selected.appendChild(name_h2);
-                selected.appendChild(image);
-            })
+        // add listener to select
+        select.addEventListener('change', function () {
+            console.log("in select listener");
+            updatePokemon();
         });
+
+        // ---------------- set first pokemon -----------------//
+        updatePokemon();
+        function updatePokemon() {
+            let pokemon1 = pokemon.find(pokemon => pokemon.name == select.value);
+            fetch(pokemon1.url).then(response => {
+                response.json().then(data => {
+                    // create li and anchor
+                    let a = document.createElement('a');
+                    a.href = pokemon1.url;
+                    // create image 
+                    let image = document.createElement('img');
+                    image.src = data.sprites.other["official-artwork"].front_default;
+                    // set size 
+                    image.style.maxHeight = "300px";
+                    image.style.maxWidth = "300px";
+
+                    // name
+                    let name_h2 = document.createElement('h2');
+                    name_h2.innerText = pokemon1.name;
+
+                    a.appendChild(name_h2);
+                    a.appendChild(image);
+
+                    let selected = document.getElementById('selected_pokemon');
+                    selected.innerHTML = "";
+                    selected.appendChild(a);
+                })
+            });
+        }
 
         // ----------------  listener  -----------------//
         document.getElementById('calculate').addEventListener('click', function (e) {
             e.preventDefault();
             // get pokemon object from select name
-            console.log(pokemon1);
             let results = document.getElementById('myUL');
             results.innerHTML = ""; // reset results
 
+            let pokemon1 = pokemon.find(pokemon => pokemon.name == select.value);
             // -------- results --------//
             for (let i = 0; i < 100; i++) {
                 fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon[i].name}`, options)
@@ -120,28 +134,7 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
             }
 
             // ---------------- set first pokemon -----------------//
-            let image = document.createElement('img');
-            pokemon1 = pokemon.find(pokemon => pokemon.name == select.value);
-            // fetch pokemon url
-            fetch(pokemon1.url).then(response => {
-                response.json().then(data => {
-                    image.src = data.sprites.other["official-artwork"].front_default;
-                    // set size 
-                    image.style.maxHeight = "300px";
-                    image.style.maxWidth = "300px";
-
-                    // name
-                    let name_h2 = document.createElement('h2');
-                    name_h2.innerText = pokemon1.name;
-
-                    let selected = document.getElementById('selected_pokemon');
-                    selected.innerHTML = "";
-                    selected.appendChild(name_h2);
-                    selected.appendChild(image);
-                })
-            });
-
-
+            updatePokemon();
         });
 
     });
