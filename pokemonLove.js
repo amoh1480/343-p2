@@ -9,15 +9,14 @@ const options = {
 // ------- Range Slider ----------//
 let slider = document.getElementById("myRange");
 let output = document.getElementById("range_value");
-output.innerHTML = slider.value; // Display the default slider value
 // add listener to slider
 slider.addEventListener("input", function () {
-    output.innerHTML = slider.value;
+    output.innerHTML = slider.value + "%";
 });
 // set what happens with refresh
 window.onload = function () {
     slider.value = 1;
-    output.innerHTML = slider.value;
+    output.innerHTML = slider.value + "%";
 }
 
 
@@ -204,6 +203,14 @@ function cardify(pokemon, percentage, result, results) {
             // percentage
             let percent_p = document.createElement('p');
             percent_p.innerText = percentage;
+            percent_p.style.marginRight = '0';
+            percent_p.style.display = 'inline-block';
+
+            let percentSign = document.createElement('p');
+            percentSign.innerText = "%";
+            percentSign.style.margin = '0';
+            percentSign.style.display = 'inline-block';
+
 
             // results
             let result_p = document.createElement('p');
@@ -213,6 +220,7 @@ function cardify(pokemon, percentage, result, results) {
             // appendages 
             text_div.appendChild(name_h2);
             text_div.appendChild(percent_p);
+            text_div.appendChild(percentSign);
             text_div.appendChild(result_p);
 
             anchor.appendChild(text_div);
@@ -224,23 +232,5 @@ function cardify(pokemon, percentage, result, results) {
 
 }
 
-// slider update
-function sliderUpdate() {
-    var ul, li, a, i, txtValue;
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName('li');
 
-    // Loop through all list items, and hide those who don't match the search query
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("p")[0];
-        txtValue = a.textContent || a.innerText;
-        // find pokemon from text
-        // let pokemon = pokemon.find(pokemon => pokemon.name == txtValue);
-        if (txtValue >= slider.value) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
-    }
-}
 
