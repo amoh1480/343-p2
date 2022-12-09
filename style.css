@@ -15,24 +15,36 @@ img {
   max-height: 300px;
 }
 
+h1 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 50px;
+  margin: 10px;
+  padding-bottom: 15px;
+}
+
 h2 {
   font-weight: bold;
 }
 
+
 body {
   background-color: #eac5d8;
   /* rgb(244, 184, 222); */
+  padding: 10px;
+}
+
+#columns {
   display: flex;
   flex-direction: row;
-  padding: 10px;
   justify-content: space-around;
 }
 
-.rightSide {
-  max-width: 190%;
+#rightSide {
+  max-width: 100%;
 }
 
-.leftSide {
+#leftSide {
   position: sticky;
   top: 0;
 }
@@ -43,7 +55,7 @@ body {
 }
 
 #myInput {
-  background-image: url('/css/searchicon.png');
+  background-image: url('/images/searchicon1.png');
   /* Add a search icon to input */
   background-position: 10px 12px;
   /* Position the search icon */

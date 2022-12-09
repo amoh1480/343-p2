@@ -6,15 +6,19 @@ const options = {
     }
 };
 
-// Range slider
+// ------- Range Slider ----------//
 let slider = document.getElementById("myRange");
 let output = document.getElementById("range_value");
 output.innerHTML = slider.value; // Display the default slider value
 // add listener to slider
 slider.addEventListener("input", function () {
-    let output = document.getElementById("range_value");
     output.innerHTML = slider.value;
 });
+// set what happens with refresh
+window.onload = function () {
+    slider.value = 1;
+    output.innerHTML = slider.value;
+}
 
 
 let rightSide = document.getElementById('rightSide');
@@ -47,14 +51,6 @@ function getValidPokemon() {
     });
 }
 
-// pokemon API
-// https://pokeapi.co/api/v2/pokemon/ditto
-
-// all pokemon ?
-// https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0
-
-// all pokemon species
-// https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0
 
 // get all pokemon
 fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response => {
@@ -232,7 +228,6 @@ function cardify(pokemon, percentage, result, results) {
 
 // slider update
 function sliderUpdate() {
-    let slider = document.getElementById('myRange');
     var ul, li, a, i, txtValue;
     ul = document.getElementById("myUL");
     li = ul.getElementsByTagName('li');
@@ -250,3 +245,4 @@ function sliderUpdate() {
         }
     }
 }
+
