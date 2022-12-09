@@ -81,7 +81,7 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
         document.getElementById('leftSide').appendChild(button);
 
         let pokemon1 = pokemon.find(pokemon => pokemon.name == select.value);
-        // set first pokemon
+        // ---------------- set first pokemon -----------------//
         let image = document.createElement('img');
         // fetch pokemon url
         fetch(pokemon1.url).then(response => {
@@ -99,12 +99,10 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
                 selected.innerHTML = "";
                 selected.appendChild(name_h2);
                 selected.appendChild(image);
-
             })
         });
-        // set options for person2 select
-        // leftSide.appendChild(document.create)
-        // listen for submit
+
+        // ----------------  listener  -----------------//
         document.getElementById('calculate').addEventListener('click', function (e) {
             e.preventDefault();
             // get pokemon object from select name
@@ -112,7 +110,7 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
             let results = document.getElementById('myUL');
             results.innerHTML = ""; // reset results
 
-            // fetch compatibility for each pokemon in array
+            // -------- results --------//
             for (let i = 0; i < 100; i++) {
                 fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon[i].name}`, options)
                     .then(response => response.json()
@@ -122,9 +120,7 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
                     .catch(err => console.error(err));
             }
 
-            // Display pokemon selected on left
-            // clear previous
-            // image
+            // ---------------- set first pokemon -----------------//
             let image = document.createElement('img');
             pokemon1 = pokemon.find(pokemon => pokemon.name == select.value);
             // fetch pokemon url
