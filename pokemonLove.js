@@ -124,7 +124,7 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(response =
 
             let pokemon1 = pokemon.find(pokemon => pokemon.name == select.value);
             // -------- results --------//
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 1000; i++) {
                 fetch(`https://love-calculator.p.rapidapi.com/getPercentage?fname=${pokemon1.name}&sname=${pokemon[i].name}`, options)
                     .then(response => response.json()
                         .then(data => {
